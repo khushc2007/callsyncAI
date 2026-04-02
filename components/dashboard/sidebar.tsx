@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import {
   LayoutDashboard,
   Calendar,
+  CalendarDays,
   Phone,
   Bell,
   ClipboardList,
@@ -22,7 +23,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-export type PageType = "dashboard" | "appointments" | "live-calls" | "reminders" | "past-appointments" | "settings"
+export type PageType =
+  | "dashboard"
+  | "appointments"
+  | "calendar"
+  | "live-calls"
+  | "reminders"
+  | "past-appointments"
+  | "settings"
 
 interface SidebarProps {
   currentPage: PageType
@@ -31,16 +39,27 @@ interface SidebarProps {
   onToggleCollapse: () => void
 }
 
-const navItems: { id: PageType; label: string; icon: typeof LayoutDashboard; hasLiveDot?: boolean }[] = [
+const navItems: {
+  id: PageType
+  label: string
+  icon: typeof LayoutDashboard
+  hasLiveDot?: boolean
+}[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: "appointments", label: "Appointments", icon: Calendar },
+  { id: "calendar", label: "Calendar", icon: CalendarDays },
   { id: "live-calls", label: "Live Calls", icon: Phone, hasLiveDot: true },
   { id: "reminders", label: "Reminders", icon: Bell },
   { id: "past-appointments", label: "Past Appointments", icon: ClipboardList },
   { id: "settings", label: "Settings", icon: Settings },
 ]
 
-export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollapse }: SidebarProps) {
+export function Sidebar({
+  currentPage,
+  onPageChange,
+  isCollapsed,
+  onToggleCollapse,
+}: SidebarProps) {
   return (
     <TooltipProvider delayDuration={0}>
       <aside
@@ -60,7 +79,9 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollap
                 <span className="text-lg font-semibold text-white tracking-tight">
                   CallSync<span className="text-coral">.</span>
                 </span>
-                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">AI</span>
+                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">
+                  AI
+                </span>
               </div>
             )}
           </div>
@@ -97,7 +118,10 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollap
               return (
                 <Tooltip key={item.id}>
                   <TooltipTrigger asChild>{navButton}</TooltipTrigger>
-                  <TooltipContent side="right" className="bg-[#1a1b23] border-[#2a2b35] text-foreground">
+                  <TooltipContent
+                    side="right"
+                    className="bg-[#1a1b23] border-[#2a2b35] text-foreground"
+                  >
                     {item.label}
                   </TooltipContent>
                 </Tooltip>
@@ -145,7 +169,11 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed, onToggleCollap
           onClick={onToggleCollapse}
           className="absolute -right-3 top-20 w-6 h-6 bg-[#1a1b23] border border-[#2a2b35] rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-[#2a2b35] transition-colors"
         >
-          {isCollapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
+          {isCollapsed ? (
+            <ChevronRight className="w-3 h-3" />
+          ) : (
+            <ChevronLeft className="w-3 h-3" />
+          )}
         </button>
       </aside>
     </TooltipProvider>

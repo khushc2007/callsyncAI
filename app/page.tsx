@@ -5,6 +5,7 @@ import { Sidebar, type PageType } from "@/components/dashboard/sidebar"
 import { Topbar } from "@/components/dashboard/topbar"
 import { DashboardHome } from "@/components/dashboard/pages/dashboard-home"
 import { AppointmentsPage } from "@/components/dashboard/pages/appointments-page"
+import { CalendarPage } from "@/components/dashboard/pages/calendar-page"
 import { LiveCallsPage } from "@/components/dashboard/pages/live-calls-page"
 import { RemindersPage } from "@/components/dashboard/pages/reminders-page"
 import { PastAppointmentsPage } from "@/components/dashboard/pages/past-appointments-page"
@@ -21,6 +22,8 @@ export default function CallSyncDashboard() {
         return <DashboardHome />
       case "appointments":
         return <AppointmentsPage />
+      case "calendar":
+        return <CalendarPage />
       case "live-calls":
         return <LiveCallsPage />
       case "reminders":
@@ -43,7 +46,7 @@ export default function CallSyncDashboard() {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       <Topbar currentPage={currentPage} sidebarCollapsed={sidebarCollapsed} />
-      
+
       <main
         className={`pt-24 pb-8 px-6 transition-all duration-300 ${
           sidebarCollapsed ? "ml-20" : "ml-64"
